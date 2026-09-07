@@ -1,10 +1,767 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" dir="ltr">
 <head>
-  <title>موقعي الأول</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#062B3A">
+  <meta name="description" content="OPENHOUR SYSTEMS — Technology, Information Security, Networking, IT Infrastructure and Professional Training.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="OPENHOUR SYSTEMS — Digital Business Card">
+  <meta property="og:description" content="Building secure, connected, and intelligent digital environments.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/openhour-logo.png">
+  <title>OPENHOUR SYSTEMS — Digital Business Card</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#062B3A;
+      --navy-2:#032330;
+      --orange:#F7941D;
+      --off:#F7F6F2;
+      --white:#FFFFFF;
+      --text:#202124;
+      --muted:#66737A;
+      --line:#E1E4E1;
+      --soft:#E9E9E6;
+      --radius:24px;
+      --shadow:0 20px 60px rgba(3,35,48,.10);
+      --shadow-soft:0 10px 35px rgba(3,35,48,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:var(--off);
+      font-family:"Inter","Manrope",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    img{max-width:100%;display:block}
+
+    .page-shell{
+      position:relative;
+      min-height:100vh;
+      isolation:isolate;
+      overflow:hidden;
+    }
+
+    /* Subtle brand-derived technical background */
+    .network-bg{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      opacity:.52;
+      background:
+        radial-gradient(circle at 8% 9%, rgba(247,148,29,.07) 0 2px, transparent 3px),
+        radial-gradient(circle at 92% 18%, rgba(6,43,58,.08) 0 2px, transparent 3px);
+      background-size:28px 28px, 36px 36px;
+    }
+    .network-bg::before,
+    .network-bg::after{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      border:1px solid rgba(6,43,58,.06);
+      border-radius:50%;
+    }
+    .network-bg::before{top:-180px;right:-170px}
+    .network-bg::after{bottom:-220px;left:-190px}
+
+    .container{
+      width:min(760px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 0 6px;
+    }
+    .mini-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.04em;
+      color:var(--navy);
+      font-size:12px;
+    }
+    .mini-dot{
+      width:8px;height:8px;border-radius:50%;background:var(--orange);
+      box-shadow:0 0 0 5px rgba(247,148,29,.10);
+    }
+    .topbar-note{
+      font-size:11px;
+      color:#7B8589;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .hero{
+      padding:34px 0 26px;
+      text-align:center;
+    }
+    .hero-logo-wrap{
+      width:180px;
+      height:180px;
+      margin:0 auto 20px;
+      border-radius:42px;
+      display:grid;
+      place-items:center;
+      background:var(--navy);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-logo-wrap::after{
+      content:"";
+      position:absolute;
+      width:86px;height:86px;
+      right:-26px;bottom:-26px;
+      border:1px solid rgba(247,148,29,.42);
+      border-radius:50%;
+    }
+    .hero-logo{
+      width:150px;
+      height:150px;
+      object-fit:cover;
+      border-radius:28px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--navy);
+      margin-bottom:8px;
+    }
+    .eyebrow span{
+      width:7px;height:7px;border-radius:50%;background:var(--orange)
+    }
+    h1{
+      margin:0;
+      font-size:clamp(30px,7vw,54px);
+      line-height:1.02;
+      letter-spacing:-.055em;
+      font-weight:800;
+      color:var(--navy);
+    }
+    .hero-desc{
+      max-width:580px;
+      margin:14px auto 0;
+      font-size:15px;
+      color:var(--muted);
+    }
+
+    .cta-row{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin:22px auto 0;
+      max-width:600px;
+    }
+    .btn{
+      min-height:54px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 20px;
+      border:1px solid transparent;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn:active{transform:translateY(0) scale(.99)}
+    .btn-primary{
+      color:var(--white);
+      background:var(--navy);
+      box-shadow:0 12px 26px rgba(6,43,58,.18);
+    }
+    .btn-primary:hover{box-shadow:0 16px 32px rgba(6,43,58,.23)}
+    .btn-secondary{
+      color:var(--navy);
+      background:rgba(255,255,255,.72);
+      border-color:var(--line);
+    }
+    .btn-secondary:hover{border-color:var(--orange);background:var(--white)}
+
+    .section{
+      padding:28px 0;
+    }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:14px;
+    }
+    .section-kicker{
+      margin:0 0 3px;
+      color:var(--orange);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    h2{
+      margin:0;
+      color:var(--navy);
+      font-size:23px;
+      line-height:1.1;
+      letter-spacing:-.03em;
+    }
+    .section-note{
+      color:#849095;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      white-space:nowrap;
+    }
+
+    .social-list{display:grid;gap:10px}
+    .social-card{
+      display:grid;
+      grid-template-columns:48px 1fr 28px;
+      align-items:center;
+      gap:13px;
+      min-height:78px;
+      padding:13px 15px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      box-shadow:0 5px 20px rgba(3,35,48,.035);
+      transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+    .social-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(247,148,29,.75);
+      box-shadow:var(--shadow-soft);
+      background:var(--white);
+    }
+    .social-icon{
+      width:48px;height:48px;
+      display:grid;place-items:center;
+      border-radius:14px;
+      background:var(--navy);
+      color:var(--white);
+      transition:background .22s ease,color .22s ease;
+    }
+    .social-card:hover .social-icon{background:rgba(247,148,29,.12);color:var(--orange)}
+    .social-icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .social-copy strong{display:block;color:var(--navy);font-size:14px}
+    .social-copy span{display:block;color:#7B8589;font-size:11px}
+    .arrow{
+      color:#9BA3A7;
+      transition:transform .22s ease,color .22s ease;
+    }
+    .social-card:hover .arrow{transform:translateX(4px);color:var(--orange)}
+    .arrow svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+    .services{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .service-card{
+      position:relative;
+      overflow:hidden;
+      min-height:118px;
+      padding:17px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--white);
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .service-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(247,148,29,.55);
+      box-shadow:var(--shadow-soft);
+    }
+    .service-number{
+      font-size:10px;
+      font-weight:800;
+      color:var(--orange);
+      letter-spacing:.12em;
+    }
+    .service-icon{
+      position:absolute;right:16px;top:15px;
+      color:var(--navy);
+      opacity:.9;
+    }
+    .service-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .service-card h3{
+      margin:13px 0 4px;
+      color:var(--navy);
+      font-size:15px;
+    }
+    .service-card p{
+      margin:0;
+      color:#788388;
+      font-size:11px;
+      max-width:85%;
+    }
+
+    .academy{
+      position:relative;
+      overflow:hidden;
+      padding:26px;
+      border-radius:24px;
+      background:var(--navy);
+      color:var(--white);
+      box-shadow:var(--shadow);
+    }
+    .academy::before{
+      content:"";
+      position:absolute;
+      width:230px;height:230px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+      right:-90px;top:-95px;
+    }
+    .academy::after{
+      content:"";
+      position:absolute;
+      width:100px;height:100px;
+      border:1px solid rgba(247,148,29,.35);
+      border-radius:50%;
+      right:45px;bottom:-58px;
+    }
+    .academy-content{position:relative;z-index:1}
+    .academy-label{
+      color:var(--orange);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .academy h2{color:var(--white);margin-top:7px}
+    .academy .lead{
+      margin:9px 0 0;
+      color:rgba(255,255,255,.74);
+      font-size:13px;
+      max-width:560px;
+    }
+    .academy .btn{
+      margin-top:17px;
+      display:inline-flex;
+      width:auto;
+      color:var(--navy);
+      background:var(--white);
+    }
+    .academy .btn:hover{background:#fff;border-color:var(--orange)}
+
+    .course-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .course-card{
+      padding:17px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+    }
+    .course-tag{
+      display:inline-block;
+      padding:5px 8px;
+      border-radius:999px;
+      background:rgba(247,148,29,.10);
+      color:#A95F08;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+    .course-card h3{margin:12px 0 5px;color:var(--navy);font-size:15px}
+    .course-card p{margin:0;color:#788388;font-size:11px}
+    .course-link{
+      margin-top:13px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:var(--navy);
+      font-size:11px;
+      font-weight:800;
+    }
+    .course-link span{transition:transform .2s ease}
+    .course-card:hover .course-link span{transform:translateX(4px)}
+
+    .contact-box{
+      display:grid;
+      gap:9px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:var(--white);
+    }
+    .contact-row{
+      display:grid;
+      grid-template-columns:40px 1fr;
+      gap:12px;
+      align-items:center;
+      padding:9px;
+      border-radius:13px;
+    }
+    .contact-row:hover{background:var(--off)}
+    .contact-icon{
+      width:40px;height:40px;border-radius:12px;
+      display:grid;place-items:center;
+      background:var(--navy);
+      color:var(--white);
+    }
+    .contact-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .contact-row small{display:block;color:#8A9498;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+    .contact-row strong{display:block;color:var(--navy);font-size:13px;word-break:break-word}
+
+    .share-bar{
+      margin:5px 0 34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .share-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:var(--white);
+      color:var(--navy);
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+    .share-btn:hover{border-color:var(--orange);transform:translateY(-2px)}
+    .share-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+    footer{
+      padding:22px 0 30px;
+      border-top:1px solid rgba(6,43,58,.09);
+      text-align:center;
+    }
+    .footer-logo{
+      width:112px;height:112px;
+      margin:0 auto 10px;
+      border-radius:24px;
+      object-fit:cover;
+      background:var(--navy);
+    }
+    .footer-tagline{margin:0;color:var(--navy);font-size:12px;font-weight:800}
+    .copyright{margin:4px 0 0;color:#929B9F;font-size:10px}
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translate(-50%, 120px);
+      z-index:20;
+      background:var(--navy);
+      color:var(--white);
+      padding:10px 14px;
+      border-radius:12px;
+      font-size:11px;
+      box-shadow:var(--shadow);
+      transition:transform .25s ease;
+      pointer-events:none;
+    }
+    .toast.show{transform:translate(-50%,0)}
+
+    :focus-visible{
+      outline:3px solid rgba(247,148,29,.45);
+      outline-offset:3px;
+    }
+
+    @media (min-width:600px){
+      .container{width:min(760px, calc(100% - 48px))}
+      .cta-row{grid-template-columns:1.2fr 1fr}
+      .services{grid-template-columns:repeat(2,1fr)}
+      .course-grid{grid-template-columns:repeat(2,1fr)}
+      .hero{padding-top:42px}
+      .hero-logo-wrap{width:190px;height:190px}
+    }
+
+    @media (min-width:900px){
+      .container{width:min(780px, calc(100% - 64px))}
+      .topbar{padding-top:28px}
+      .hero{padding-top:52px}
+      .section{padding:34px 0}
+      .network-bg{opacity:.7}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition:none!important;animation:none!important}
+    }
+  </style>
 </head>
+
 <body>
-  <h1>مرحباً بك في موقعي!</h1>
-  <p>هذا الموقع يعمل عبر GitHub Pages.</p>
+<div class="page-shell">
+  <div class="network-bg" aria-hidden="true"></div>
+
+  <main class="container">
+    <div class="topbar">
+      <div class="mini-brand"><span class="mini-dot"></span> OPENHOUR SYSTEMS</div>
+      <div class="topbar-note">Digital Profile</div>
+    </div>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" id="hero-logo" src="assets/openhour-logo.png" alt="Openhour Systems logo">
+      </div>
+      <div class="eyebrow"><span></span> Technology • Security • Infrastructure</div>
+      <h1 id="hero-title">OPENHOUR SYSTEMS</h1>
+      <p class="hero-desc">Building secure, connected, and intelligent digital environments.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Contact Openhour Systems <span>↗</span></a>
+        <a class="btn btn-secondary" href="#services">Explore Our Services <span>↓</span></a>
+      </div>
+    </section>
+
+    <section class="section" id="social" aria-labelledby="social-title">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Stay Connected</p>
+          <h2 id="social-title">Find us online</h2>
+        </div>
+        <span class="section-note">Official Channels</span>
+      </div>
+      <div class="social-list" id="social-list"></div>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Capabilities</p>
+          <h2 id="services-title">What We Do</h2>
+        </div>
+        <span class="section-note">Technology • Security • IT</span>
+      </div>
+      <div class="services">
+        <article class="service-card">
+          <div class="service-number">01</div><div class="service-icon" data-icon="shield"></div>
+          <h3>Cybersecurity</h3><p>Information Security & Cybersecurity Solutions</p>
+        </article>
+        <article class="service-card">
+          <div class="service-number">02</div><div class="service-icon" data-icon="network"></div>
+          <h3>Networking</h3><p>Network Infrastructure & MikroTik Solutions</p>
+        </article>
+        <article class="service-card">
+          <div class="service-number">03</div><div class="service-icon" data-icon="server"></div>
+          <h3>IT Infrastructure</h3><p>Network Design, Installation & Infrastructure</p>
+        </article>
+        <article class="service-card">
+          <div class="service-number">04</div><div class="service-icon" data-icon="academic"></div>
+          <h3>Training Academy</h3><p>Professional Technology & Cybersecurity Training</p>
+        </article>
+        <article class="service-card">
+          <div class="service-number">05</div><div class="service-icon" data-icon="audit"></div>
+          <h3>Security Assessment</h3><p>Security Auditing & Vulnerability Assessment</p>
+        </article>
+        <article class="service-card">
+          <div class="service-number">06</div><div class="service-icon" data-icon="consult"></div>
+          <h3>Technical Consulting</h3><p>Professional IT & Security Consulting</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="academy-title">
+      <div class="academy">
+        <div class="academy-content">
+          <div class="academy-label">Openhour Academy</div>
+          <h2 id="academy-title">Learn. Build. Secure.</h2>
+          <p class="lead">Professional training programs designed to build practical skills in networking, infrastructure, cybersecurity, and information security.</p>
+          <a class="btn" href="#courses">View Training Programs <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="courses" aria-labelledby="courses-title">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Openhour Academy</p>
+          <h2 id="courses-title">Featured Courses</h2>
+        </div>
+        <span class="section-note">Practical Learning</span>
+      </div>
+      <div class="course-grid">
+        <article class="course-card"><span class="course-tag">Networking</span><h3>MikroTik & Networking</h3><p>Practical network configuration, routing, services and infrastructure fundamentals.</p><a class="course-link" href="#contact">Learn More <span>→</span></a></article>
+        <article class="course-card"><span class="course-tag">Security</span><h3>Ethical Hacking & Penetration Testing</h3><p>Security testing concepts, methodology and responsible assessment techniques.</p><a class="course-link" href="#contact">Learn More <span>→</span></a></article>
+        <article class="course-card"><span class="course-tag">Offensive Security</span><h3>Offensive Security & Penetration Testing</h3><p>Hands-on offensive security concepts focused on controlled environments.</p><a class="course-link" href="#contact">Learn More <span>→</span></a></article>
+        <article class="course-card"><span class="course-tag">Malware</span><h3>Malware Analysis</h3><p>Foundations of malware analysis, investigation and defensive understanding.</p><a class="course-link" href="#contact">Learn More <span>→</span></a></article>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2 id="contact-title">Let’s Connect</h2>
+        </div>
+        <span class="section-note">Openhour Systems</span>
+      </div>
+      <div class="contact-box">
+        <a class="contact-row" id="email-link" href="#">
+          <span class="contact-icon" data-icon="mail"></span>
+          <span><small>Email</small><strong id="email-text">[EMAIL]</strong></span>
+        </a>
+        <a class="contact-row" id="phone-link" href="#">
+          <span class="contact-icon" data-icon="phone"></span>
+          <span><small>Phone</small><strong id="phone-text">[PHONE]</strong></span>
+        </a>
+        <a class="contact-row" id="whatsapp-link" href="#">
+          <span class="contact-icon" data-icon="message"></span>
+          <span><small>WhatsApp</small><strong id="whatsapp-text">[WHATSAPP]</strong></span>
+        </a>
+        <div class="contact-row">
+          <span class="contact-icon" data-icon="pin"></span>
+          <span><small>Location</small><strong id="location-text">[LOCATION]</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="share-bar">
+      <button class="share-btn" id="share-btn" type="button" aria-label="Share Openhour Systems profile">
+        <span data-icon="share"></span> Share Openhour
+      </button>
+    </div>
+
+    <footer>
+      <img class="footer-logo" src="assets/openhour-logo.png" alt="Openhour Systems">
+      <p class="footer-tagline">Build. Connect. Secure.</p>
+      <p class="copyright">© <span id="year">2026</span> Openhour Systems. All rights reserved.</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+  const C = OPENHOUR_CONFIG;
+
+  const icons = {
+    instagram: `<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.7" r=".8" fill="currentColor" stroke="none"></circle></svg>`,
+    facebook: `<svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v4h4v-4h3.2l.8-4H13V9c0-.7.3-1 1-1Z"></path></svg>`,
+    linkedin: `<svg viewBox="0 0 24 24"><path d="M5 8v11M5 5.5v.1M9 19v-6a4 4 0 0 1 8 0v6M9 11V19"></path></svg>`,
+    youtube: `<svg viewBox="0 0 24 24"><path d="M20.3 7.1a2.5 2.5 0 0 0-1.8-1.8C16.9 5 12 5 12 5s-4.9 0-6.5.3a2.5 2.5 0 0 0-1.8 1.8C3.4 8.7 3.4 12 3.4 12s0 3.3.3 4.9a2.5 2.5 0 0 0 1.8 1.8C7.1 19 12 19 12 19s4.9 0 6.5-.3a2.5 2.5 0 0 0 1.8-1.8c.3-1.6.3-4.9.3-4.9s0-3.3-.3-4.9Z"></path><path d="m10 9 5 3-5 3V9Z"></path></svg>`,
+    tiktok: `<svg viewBox="0 0 24 24"><path d="M15 4c.3 2.1 1.4 3.4 3.5 3.5v3.2c-1.4.1-2.6-.3-3.5-.9v6.1a5 5 0 1 1-5-5c.3 0 .7 0 1 .1v3.2a2.2 2.2 0 1 0 .7 1.7V4H15Z"></path></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"></path><path d="M8.3 9.1c.2 1.8 2.5 4 4.3 4.6.5.2 1.1.1 1.5-.3l.7-.8-.9-.7-.7.5c-.2.2-.5.2-.7.1-.9-.4-1.9-1.4-2.3-2.2-.1-.2-.1-.5.1-.7l.5-.6-.7-.9-.8.3c-.6.2-.9.4-1 .7Z"></path></svg>`,
+    telegram: `<svg viewBox="0 0 24 24"><path d="m21 4-3.2 16-6-5-3 3-.5-4.3L4 12.3 21 4Z"></path><path d="m8.3 13.7 8.6-7-6.2 8.3"></path></svg>`,
+    x: `<svg viewBox="0 0 24 24"><path d="M5 4.5 19 19.5M19 4.5 5 19.5"></path></svg>`,
+    shield: `<svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"></path><path d="m9 12 2 2 4-4"></path></svg>`,
+    network: `<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"></circle><circle cx="19" cy="6" r="2"></circle><circle cx="19" cy="18" r="2"></circle><path d="m7 11 10-4M7 13l10 4"></path></svg>`,
+    server: `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1"></rect><rect x="4" y="14" width="16" height="6" rx="1"></rect><path d="M7 7h.1M7 17h.1"></path></svg>`,
+    academic: `<svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"></path><path d="M7 11v5c2.8 2.2 7.2 2.2 10 0v-5M21 9v6"></path></svg>`,
+    audit: `<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"></path><path d="M8 8h8M8 12h5M8 16h6"></path></svg>`,
+    consult: `<svg viewBox="0 0 24 24"><path d="M4 18v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path><circle cx="10" cy="7" r="3"></circle><path d="m17 8 1 1 2-2"></path></svg>`,
+    mail: `<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>`,
+    phone: `<svg viewBox="0 0 24 24"><path d="M7 4h3l1.2 4-2 1.4a13 13 0 0 0 5.4 5.4L16 12.8 20 14v3c0 1.1-.9 2-2 2C10.3 19 5 13.7 5 6c0-1.1.9-2 2-2Z"></path></svg>`,
+    message: `<svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"></path></svg>`,
+    pin: `<svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>`,
+    share: `<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"></path></svg>`,
+    arrow: `<svg viewBox="0 0 24 24"><path d="M6 12h12M13 7l5 5-5 5"></path></svg>`
+  };
+
+  const toast = (message) => {
+    const el = document.getElementById("toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+  };
+
+  document.querySelectorAll("[data-icon]").forEach(el => {
+    const name = el.dataset.icon;
+    if (icons[name]) el.innerHTML = icons[name];
+  });
+
+  document.getElementById("hero-logo").src = C.company.logo;
+  document.querySelector(".footer-logo").src = C.company.logo;
+  document.getElementById("year").textContent = C.company.year;
+
+  const socialList = document.getElementById("social-list");
+  Object.entries(C.social).forEach(([key, item]) => {
+    const href = C.links[key] || "#";
+    const card = document.createElement("a");
+    card.className = "social-card";
+    card.href = href.startsWith("[") ? "#" : href;
+    card.target = card.href !== "#" ? "_blank" : "_self";
+    card.rel = "noopener noreferrer";
+    card.innerHTML = `
+      <span class="social-icon">${icons[key]}</span>
+      <span class="social-copy">
+        <strong>${item.label}</strong>
+        <span>${item.handle} · ${item.description}</span>
+      </span>
+      <span class="arrow">${icons.arrow}</span>
+    `;
+    if (href.startsWith("[")) {
+      card.addEventListener("click", e => {
+        e.preventDefault();
+        toast("Add this social URL in config.js");
+      });
+    }
+    socialList.appendChild(card);
+  });
+
+  const setContact = (id, value, href) => {
+    document.getElementById(id + "-text").textContent = value;
+    const link = document.getElementById(id + "-link");
+    if (link) {
+      link.href = href || "#";
+      if (!href || href === "#") {
+        link.addEventListener("click", e => { e.preventDefault(); toast("Add this contact detail in config.js"); });
+      }
+    }
+  };
+
+  setContact("email", C.contact.email, C.contact.email.startsWith("[") ? "#" : `mailto:${C.contact.email}`);
+  setContact("phone", C.contact.phone, C.contact.phone.startsWith("[") ? "#" : `tel:${C.contact.phone}`);
+  setContact("whatsapp", C.contact.whatsapp, C.contact.whatsapp.startsWith("[") ? "#" : C.links.whatsapp);
+  document.getElementById("location-text").textContent = C.contact.location;
+
+  document.getElementById("share-btn").addEventListener("click", async () => {
+    const shareData = {
+      title: C.company.name,
+      text: C.company.description,
+      url: window.location.href
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(window.location.href);
+        toast("Profile link copied");
+      } else {
+        toast("Copy this page URL to share it");
+      }
+    } catch (err) {
+      if (err?.name !== "AbortError") toast("Unable to share right now");
+    }
+  });
+</script>
 </body>
 </html>
